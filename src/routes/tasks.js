@@ -2,28 +2,22 @@ const express = require('express');//importar
 const Task = require('../models/Tasks');
 const router = express.Router(); //Declarar objeto que tiene las rutas
 
-const tarea = require('../models/Tasks');
-
 //DEFINIR RUTAS
-
 router.get('/', async (req,res) => {//OBTENER LAS TAREAS ALMACENADAS
-    const tareas = await tarea.find(); //cuando termine la consulta a la _BD asiganlo a la constante tareas
+    const tareas = await Task.find(); //cuando termine la consulta a la _BD asiganlo a la constante tareas
      res.json(tareas);//mostrar modelo al navegador
 });
 
 router.get('/:id', async (req, res) =>{//RETORNAR LA TAREA SEGUN EL ID
-    const Mitarea = await tarea.findById(req.params.id);//espero que busque en la BD el id 
+    const Mitarea = await Task.findById(req.params.id);//espero que busque en la BD el id 
     res.json(Mitarea);
 });
 
 router.post('/', async(req,res)=>{//GUARDAR TAREAS 
-   const tarea = new Task(req.body);//INSTANCIAR OBJETO y fijar ID luego  PASO EL CUERPO DE LA PETICION
-   await tarea.save();//ESPERA QUE GUARDE EN LA BD Y LUEGO  CONTINUA CON la respuesta(requiere algo de tiempo mientras guarda en la BD)
-   //console.log(tarea)//MOSTRAR EL BODY
+   const tareaObj = new Task(req.body);//INSTANCIAR OBJETO y fijar ID luego  PASO EL CUERPO DE LA PETICION
+   await tareaObj.save();//ESPERA QUE GUARDE EN LA BD Y LUEGO  CONTINUA CON la respuesta(requiere algo de tiempo mientras guarda en la BD)
 
-
-   //MOSTRAR DATOS EN CONSOLA
-res.json({
+res.json({//MOSTRAR DATOS EN CONSOLA
        Estado: 'Tarea guardada'
    });
 });
