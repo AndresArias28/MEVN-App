@@ -1,5 +1,6 @@
 <template>
   <div>
+     <h1>  Gestión de Tareas </h1>
     <nav class="navbar navbar-light bg-light">
       <a href="/" class="navbar-brand">Inicio</a>
     </nav>
@@ -15,7 +16,7 @@
                   <input
                     type="text"
                     v-model="tarea.titulo"
-                    placeholder="Agrega una tarea"
+                    placeholder="Agrega una task"
                     class="form-control"
                   />
                 </div>
@@ -51,20 +52,13 @@
             <tbody>
               <tr class="table-active" v-for="tarea of tareas" :key="tarea.id">
                 <td>{{ tarea.titulo }}</td>
-                <td colspan="2" class="table-active">
-                  {{ tarea.descripcion }}
-                </td>
+                <td colspan="2" class="table-active"> {{ tarea.descripcion }}</td>
                 <td>
-                  <button
-                    @click="eliminarTarea(tarea._id)"
-                    class="btn btn-danger"
-                  >
+                  <button @click="eliminarTarea(tarea._id)" class="btn btn-danger">
                     Eliminar
                   </button>
-                  <button
-                    @click="actualizarTarea(tarea._id)"
-                    class="btn btn-secondary"
-                  >
+
+                  <button @click="actualizarTarea(tarea._id)" class="btn btn-secondary">
                     Actualizar
                   </button>
                 </td>
@@ -105,6 +99,7 @@ export default {
           console.log(this.tareas);
         });
     },
+
     agregarTarea() {
       if (this.editado === false) {
         //Metodo fetch API para transaccionar datos de forma asincrona
@@ -115,7 +110,7 @@ export default {
           headers: {
             //definir cabecera a enviar
             Accept: "application/json",
-            "Content-type": "application/json",
+            "Content-type": "application/json"
           }
         })
           .then((res) => res.json()) //parcear la respuesta de String  a objeto json
@@ -128,7 +123,7 @@ export default {
            body: JSON.stringify(this.tarea),//ENVIAR DATOS A ACTUALIZAR
            headers: {
              Accept: "application/json",
-            "Content-type": "application/json",
+            "Content-type": "application/json"
             }
          })
           .then(res => res.json()) 
@@ -137,9 +132,10 @@ export default {
             this.editado = false;
           });
 
-       }
+      }
     
-      },
+    },
+
     eliminarTarea(id) {
       fetch("/api/tasks/" + id, {
         //definir la ruta donde se muestran los datos y le envio el id(DEFINIR PETICION)
@@ -155,6 +151,7 @@ export default {
           this.obtenerTareas();//volver a obtener(actualizar tareas)
         })
     },
+
     actualizarTarea(id) {
       fetch("/api/tasks/" + id)
         .then((res) => res.json())
@@ -163,7 +160,7 @@ export default {
           this.tareaEditar = data._id;//ALMACENAR EL ID DE LA TAREA A ACTUALIZAR
           this.editado = true;
         });
-    },
-  },
+    }
+  }
 };
 </script>

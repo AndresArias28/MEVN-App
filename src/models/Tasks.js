@@ -1,4 +1,4 @@
-//CREAR EL MODELO 
+//CREAR EL MODELO o la esctructura de como se veran los datos
 
 const mongoose = require('mongoose');
 const { Schema } = mongoose;//Escoger una parte de la libreria.
